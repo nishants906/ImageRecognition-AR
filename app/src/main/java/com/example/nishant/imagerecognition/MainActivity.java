@@ -30,7 +30,7 @@ import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
 
-    private CustomArFragment fragment;
+    private CustomArFragment arFragment;
     private boolean shoulAdd = true;
 
     @Override
@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        fragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
-        fragment.getPlaneDiscoveryController().hide();
+        arFragment = (CustomArFragment) getSupportFragmentManager().findFragmentById(R.id.sceneform_fragment);
+        arFragment.getPlaneDiscoveryController().hide();
 
-        fragment.getArSceneView().getScene().setOnUpdateListener((this::onUpdateframe));
+        arFragment.getArSceneView().getScene().addOnUpdateListener(this::onUpdateFrame);
 
     }
 
@@ -55,10 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        AugmentedImageDatabase augmentedImageDatabase1 = new AugmentedImageDatabase(session);
+         augmentedImageDatabase = new AugmentedImageDatabase(session);
         augmentedImageDatabase.addImage("airplane",bitmap);
 
-        config.setAugmentedImageDatabase(augmentedImageDatabase1);
+        config.setAugmentedImageDatabase(augmentedImageDatabase);
         return true;
 
 
@@ -74,15 +74,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void onUpdateframe(FrameTime frameTime){
+    public void onUpdateFrame(FrameTime frameTime){
 
-        Frame frame = fragment.getArSceneView().getArFrame();
+        Frame frame = arFragment.getArSceneView().getArFrame();
         Collection<AugmentedImage> augmentedImages = frame.getUpdatedTrackables(AugmentedImage.class);
 
         for (AugmentedImage augmentedImage:augmentedImages){
             if (augmentedImage.getTrackingState() == TrackingState.TRACKING){
                 if (augmentedImage.getName().equals("airplane") && shoulAdd){
-                    placeObject(fragment,augmentedImage.createAnchor(augmentedImage.getCenterPose()),Uri.parse("Airplane.sfb"));
+                    placeObject(arFragment,augmentedImage.createAnchor(augmentedImage.getCenterPose()),Uri.parse("Airplane.sfb"));
                     shoulAdd= false;
 
                 }

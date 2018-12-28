@@ -12,6 +12,7 @@ public class CustomArFragment extends ArFragment {
     @Override
     protected Config getSessionConfiguration(Session session){
 
+        Log.d("setupdb","2");
         getPlaneDiscoveryController().setInstructionView(null); // hiding hand gesture
 
 
@@ -20,6 +21,7 @@ public class CustomArFragment extends ArFragment {
         session.configure(config);
         this.getArSceneView().setupSession(session);
 
+        Log.d("setupdb","1");
 
         if (((MainActivity)getActivity()).setupAugmentedImageDatabase(config,session)){
             Log.d("setupdb","success");
