@@ -21,6 +21,11 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    aaptOptions {
+        noCompress "tflite"
+        noCompress "lite"
+    }
 }
 
 dependencies {
@@ -33,6 +38,8 @@ dependencies {
 
     implementation 'com.google.ar:core:1.6.0'
     implementation 'com.google.ar.sceneform.ux:sceneform-ux:1.6.0'
+
+    compile 'org.tensorflow:tensorflow-lite:+'
 }
 
 
@@ -40,3 +47,8 @@ sceneform.asset('sampledata/plane/Airplane.obj',
         'default',
         'sampledata/plane/Airplane.sfa',
         'src/main/assets/Airplane')
+
+sceneform.asset('sampledata/ArcticFox_Posed_obj_dK08uQ8-Zm9_3nMqNZ6NI1E/ArcticFox_Posed.obj',
+        'default',
+        'sampledata/ArcticFox_Posed_obj_dK08uQ8-Zm9_3nMqNZ6NI1E/ArcticFox_Posed.sfa',
+        'src/main/assets/fox')

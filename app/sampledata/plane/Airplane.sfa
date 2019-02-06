@@ -37,7 +37,7 @@
     file: 'sampledata/plane/Airplane.obj',
     name: 'Airplane',
     recenter: 'root',
-    scale: 0.001722,
+    scale: 0.0001722,
   },
   samplers: [
     {
